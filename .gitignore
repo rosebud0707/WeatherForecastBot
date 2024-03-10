@@ -1,0 +1,7 @@
+/dist/*
+!/dist/.gitkeep
+/Log/*
+!/Log/.gitkeep
+/node_modules/
+config.json
+/.vscode/
