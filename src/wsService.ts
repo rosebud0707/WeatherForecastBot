@@ -5,6 +5,7 @@ import { PrefList } from "./types";
 import { RequestUrls } from "./types";
 import { ReceivedDataHandler } from "./receivedDataHandler";
 import { MisskeyAPIRapper } from "./misskeyAPIWrapper";
+import { ApiClientHandler } from "./apiClientHandler";
 
 /**
  * WsService
@@ -69,29 +70,15 @@ export class WsService {
     ws.on("message", (data) => {
       this.logger.info("通知検知");
 
-      // 受信したデータをオブジェクト化
-      const receiveData = JSON.parse(data.toString());
+      // 受信データの確認、APIとの受け渡しを行うクラスのインスタンス化
+      const apiClientHandler = new ApiClientHandler(
+        this.logger,
+        this.preflist,
+        this.misskeyApi,
+        this.weatherUrls
+      );
 
-      if (
-        receiveData.body.type === "unreadNotification" &&
-        (receiveData.body.body.type === "mention" || "reply")
-      ) {
-        // 受信したデータが未読かつメンションまたはリプライの場合のみ反応
-        // bot宛のメンションを切り出す。
-        const mention_raw: string = receiveData.body.body.note.text;
-        const mention: string[] = mention_raw.split(/\s+/);
-        // 返信先ID
-        const toId: string = "@" + receiveData.body.body.user.username;
-
-        // データハンドラのインスタンス化
-        const recvDataHandler = new ReceivedDataHandler(
-          this.logger,
-          this.misskeyApi,
-          this.weatherUrls
-        );
-        // データ処理
-        recvDataHandler.handleData(toId, mention, this.preflist);
-      }
+      apiClientHandler.handlerMain(data);
     });
 
     // 切断検知
