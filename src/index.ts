@@ -2,7 +2,7 @@ import { SetConfig } from "./setConfig";
 import { Main } from "./main";
 
 console.log("WeatherForecastBot");
-console.log("ver1.00");
+console.log("ver1.01");
 console.log("Starting. . .");
 
 // 初期設定ファイルの設定

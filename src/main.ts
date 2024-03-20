@@ -1,13 +1,12 @@
 import * as log4js from "log4js";
 import { WeatherForecastSettings } from "./types";
-import { WsService } from "./wsService";
-import { MisskeyAPIRapper } from "./misskeyAPIWrapper";
+import { WsServiceMisskey } from "./wsServiceMisskey";
 
 /**
  * Mainクラス
  */
 export class Main {
-  private configData: WeatherForecastSettings;
+  readonly configData: WeatherForecastSettings;
   private log4js;
 
   constructor(config: WeatherForecastSettings) {
@@ -43,27 +42,14 @@ export class Main {
     logger.info("bot起動");
 
     try {
-      // misskeyAPIラッパークラスのインスタンス化
-      const misskeyApi = new MisskeyAPIRapper(
-        this.configData.misskey_account_setting.domain_name,
-        this.configData.misskey_account_setting.api_key
-      );
       // Websocket接続URL
       const wsUrl: string =
-        this.configData.misskey_account_setting.websocket_url.replace(
-          "{token}",
-          this.configData.misskey_account_setting.api_key
-        );
+        this.configData.misskey_account_setting.websocket_url
+          .replace("{token}", this.configData.misskey_account_setting.api_key)
+          .replace("{host}", this.configData.misskey_account_setting.host_name);
 
       // Websocketサービスクラスインスタンス化
-      const ws = new WsService(
-        wsUrl,
-        logger,
-        this.configData.pref_list,
-        this.configData.request_limit,
-        misskeyApi,
-        this.configData.request_urls
-      );
+      const ws = new WsServiceMisskey(this.configData, logger, wsUrl);
 
       // Websocket接続
       ws.mainConnect();
