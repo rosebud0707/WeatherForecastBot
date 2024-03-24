@@ -54,13 +54,16 @@ export class MisskeyBotInterface {
         );
 
         // 1分間にbotに対して規定以上のリクエストが行われていた場合、エラーとする。
-        if (cntCheck[0].cnt > this.settings.request_limit) {
+        if (
+          cntCheck.length > 0 &&
+          cntCheck[0].CNT > this.settings.request_limit
+        ) {
           responseSentence =
             "リクエスト上限数エラー。しばらく待ってから、再度お問い合わせください。";
         } else {
           // リクエスト履歴登録。
           const insSentence: string =
-            "INSERT INTO wf_request_history(id, request_time, create_time) values('{0}',CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP())";
+            "INSERT INTO wf_request_history (id, request_time, create_time) values ('{0}',CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP());";
           await dbConn.insUpdateData(insSentence.replace("{0}", toId));
 
           // bot宛のメンション本文を切り出す。

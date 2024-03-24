@@ -70,8 +70,6 @@ export class DatabaseHandler {
     } catch (error) {
       this.logger.error("データ抽出エラー");
       throw error;
-    } finally {
-      this.closeDbConnect();
     }
   }
 
