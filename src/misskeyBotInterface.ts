@@ -60,7 +60,7 @@ export class MisskeyBotInterface {
         } else {
           // リクエスト履歴登録。
           const insSentence: string =
-            "INSERT INTO wf_request_history(id, request_time, create_time) values({0},CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP())";
+            "INSERT INTO wf_request_history(id, request_time, create_time) values('{0}',CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP())";
           await dbConn.insUpdateData(insSentence.replace("{0}", toId));
 
           // bot宛のメンション本文を切り出す。
