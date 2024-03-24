@@ -1,6 +1,6 @@
 {
   "name": "weatherforecastbot",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "気象庁が公開している天気概況を返信するMisskey上で動くbot",
   "main": "./src/index.ts",
   "scripts": {
@@ -13,12 +13,13 @@
   "dependencies": {
     "axios": "^1.6.7",
     "log4js": "^6.9.1",
+    "mysql2": "^3.9.2",
     "node-fetch": "^2.7.0",
     "uuid": "^9.0.1",
     "ws": "^8.16.0"
   },
   "devDependencies": {
-    "@types/node": "^20.11.25",
+    "@types/node": "^20.11.30",
     "@types/node-fetch": "^2.6.11",
     "@types/uuid": "^9.0.8",
     "@types/ws": "^8.5.10"

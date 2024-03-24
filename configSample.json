@@ -17,6 +17,12 @@
     "file_name": "weather_forecast.log",
     "folder_path": "./Log/"
   },
+  "db_setting": {
+    "host": "localhost",
+    "user": "dbUserName",
+    "database_name": "dbName",
+    "password": "password"
+  },
   "request_limit": 3,
   "pref_list": {
     "011000": "稚内",

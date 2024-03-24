@@ -5,6 +5,7 @@ export type WeatherForecastSettings = {
   misskey_account_setting: MisskeyAccountSetting;
   request_urls: RequestUrls;
   log_setting: LogSetting;
+  db_setting: DBSetting;
   request_limit: number;
   pref_list: PrefList;
 };
@@ -41,6 +42,17 @@ export type LogSetting = {
   log_level: string;
   file_name: string;
   folder_path: string;
+};
+
+/**
+ * configファイル データ型定義
+ * DB設定
+ */
+export type DBSetting = {
+  host: string;
+  user: string;
+  database_name: string;
+  password: string;
 };
 
 /**
