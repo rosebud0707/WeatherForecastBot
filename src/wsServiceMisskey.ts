@@ -3,7 +3,7 @@ import WebSocket from "ws";
 import { WeatherForecastSettings } from "./types";
 import { v4 as uuidv4 } from "uuid";
 import { WsServiceBase } from "./wsServiceBase";
-import { MisskeyBotHnadler } from "./misskeyBotHnadler";
+import { MisskeyBotInterface } from "./misskeyBotInterface";
 
 /**
  * WsServiceMisskey
@@ -47,7 +47,10 @@ export class WsServiceMisskey extends WsServiceBase {
    * 受信処理
    */
   protected receiveEvent(ws: WebSocket, data: WebSocket.RawData): void {
-    const misskeyBotHandler = new MisskeyBotHnadler(this.settings, this.logger);
-    misskeyBotHandler.weatherForecastMain(data);
+    const misskeyBotInterface = new MisskeyBotInterface(
+      this.settings,
+      this.logger
+    );
+    misskeyBotInterface.weatherForecastMain(data);
   }
 }
